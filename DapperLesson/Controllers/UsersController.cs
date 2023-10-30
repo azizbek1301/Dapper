@@ -25,19 +25,6 @@ namespace DapperLesson.Controllers
                 return Ok(users);
             }
         }
-
-        [HttpGet]
-        public IActionResult GetAllUserById()
-        {
-            using (var connection = new SqlConnection(connectionString))
-            {
-                string query = "Select * from Test where ";
-                var users = connection.Query<User>(query);
-
-                return Ok(users);
-            }
-        }
-
         [HttpPost]
         public IActionResult CreateUser(UserDto model)
         {
