@@ -2,6 +2,7 @@
 using DapperLesson.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Metadata;
 using System.Data.SqlClient;
 
 namespace DapperLesson.Controllers
@@ -23,14 +24,15 @@ namespace DapperLesson.Controllers
             }
         }
         [HttpPost]
-        public IActionResult GetlUser()
+        public IActionResult CreateUser(UserDto model)
         {
             using (var connection = new SqlConnection(connectionString))
             {
-                string query = "Select * from Test";
-                var users = connection.Query<User>(query);
+                string query = $"Insert into Test Values ({model.id},'{model.name}',{model.age})";
+                connection.Execute(query);
+                
 
-                return Ok(users);
+                return Ok("Created");
             }
         }
     }
